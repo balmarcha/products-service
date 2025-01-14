@@ -1,0 +1,338 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: balmarcha
+      changes:
+        - createTable:
+            tableName: products
+            columns:
+              - column:
+                  name: id
+                  type: BIGSERIAL
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: name
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: short_description
+                  type: TEXT
+              - column:
+                  name: long_description
+                  type: TEXT
+              - column:
+                  name: base_price
+                  type: NUMERIC(10,2)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: promotional_price
+                  type: NUMERIC(10,2)
+              - column:
+                  name: currency
+                  type: CHAR(3)
+                  defaultValue: 'EUR'
+              - column:
+                  name: sku
+                  type: VARCHAR(50)
+                  constraints:
+                    unique: true
+                    nullable: false
+              - column:
+                  name: barcode
+                  type: VARCHAR(50)
+                  constraints:
+                    unique: true
+              - column:
+                  name: brand
+                  type: VARCHAR(100)
+              - column:
+                  name: model
+                  type: VARCHAR(100)
+              - column:
+                  name: min_age
+                  type: INT
+              - column:
+                  name: max_age
+                  type: INT
+              - column:
+                  name: gender
+                  type: VARCHAR(20)
+              - column:
+                  name: material
+                  type: VARCHAR(100)
+              - column:
+                  name: toy_type
+                  type: VARCHAR(50)
+              - column:
+                  name: weight
+                  type: NUMERIC(10,2)
+              - column:
+                  name: dimensions
+                  type: VARCHAR(100)
+              - column:
+                  name: country_of_origin
+                  type: VARCHAR(100)
+              - column:
+                  name: release_date
+                  type: DATE
+              - column:
+                  name: category_id
+                  type: BIGINT
+              - column:
+                  name: created_at
+                  type: TIMESTAMP
+                  defaultValueComputed: CURRENT_TIMESTAMP
+              - column:
+                  name: updated_at
+                  type: TIMESTAMP
+                  defaultValueComputed: CURRENT_TIMESTAMP
+
+  - changeSet:
+      id: 2
+      author: balmarcha
+      changes:
+        - createTable:
+            tableName: categories
+            columns:
+              - column:
+                  name: id
+                  type: BIGSERIAL
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: name
+                  type: VARCHAR(100)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: description
+                  type: TEXT
+              - column:
+                  name: parent_category_id
+                  type: BIGINT
+              - column:
+                  name: created_at
+                  type: TIMESTAMP
+                  defaultValueComputed: CURRENT_TIMESTAMP
+              - column:
+                  name: updated_at
+                  type: TIMESTAMP
+                  defaultValueComputed: CURRENT_TIMESTAMP
+
+  - changeSet:
+      id: 3
+      author: balmarcha
+      changes:
+        - createTable:
+            tableName: tags
+            columns:
+              - column:
+                  name: id
+                  type: BIGSERIAL
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: name
+                  type: VARCHAR(50)
+                  constraints:
+                    unique: true
+                    nullable: false
+
+  - changeSet:
+      id: 4
+      author: balmarcha
+      changes:
+        - createTable:
+            tableName: products_tags
+            columns:
+              - column:
+                  name: product_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: tag_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+
+  - changeSet:
+      id: 5
+      author: balmarcha
+      changes:
+        - createTable:
+            tableName: media
+            columns:
+              - column:
+                  name: id
+                  type: BIGSERIAL
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: product_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: type
+                  type: VARCHAR(10)
+              - column:
+                  name: url
+                  type: TEXT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: order
+                  type: INT
+                  defaultValueNumeric: 0
+              - column:
+                  name: created_at
+                  type: TIMESTAMP
+                  defaultValueComputed: CURRENT_TIMESTAMP
+
+  - changeSet:
+      id: 6
+      author: balmarcha
+      changes:
+        - createTable:
+            tableName: technical_specifications
+            columns:
+              - column:
+                  name: id
+                  type: BIGSERIAL
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: product_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: key
+                  type: VARCHAR(50)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: value
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+
+  - changeSet:
+      id: 7
+      author: balmarcha
+      changes:
+        - createTable:
+            tableName: related_products
+            columns:
+              - column:
+                  name: product_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: related_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: type
+                  type: VARCHAR(20)
+                  defaultValue: 'complementary'
+
+  - changeSet:
+      id: 8
+      author: balmarcha
+      changes:
+        - createTable:
+            tableName: safety
+            columns:
+              - column:
+                  name: id
+                  type: BIGSERIAL
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: product_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: warning
+                  type: TEXT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: standard
+                  type: VARCHAR(50)
+
+  - changeSet:
+      id: 9
+      author: balmarcha
+      changes:
+        - createTable:
+            tableName: colors
+            columns:
+              - column:
+                  name: id
+                  type: BIGSERIAL
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: name
+                  type: VARCHAR(50)
+                  constraints:
+                    unique: true
+                    nullable: false
+
+  - changeSet:
+      id: 10
+      author: balmarcha
+      changes:
+        - createTable:
+            tableName: products_colors
+            columns:
+              - column:
+                  name: product_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: color_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+
+  - changeSet:
+      id: 11
+      author: balmarcha
+      changes:
+        - createTable:
+            tableName: interactivity
+            columns:
+              - column:
+                  name: id
+                  type: BIGSERIAL
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: product_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: feature
+                  type: VARCHAR(100)
+                  constraints:
+                    nullable: false

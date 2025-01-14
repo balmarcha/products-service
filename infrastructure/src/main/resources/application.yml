@@ -1,0 +1,20 @@
+server:
+  port: 7071
+  servlet:
+    context-path: /products-service
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/product_service_db
+    username: product_service_user
+    password: product_service_pass
+  jpa:
+    hibernate:
+      ddl-auto: none
+    show-sql: true
+  liquibase:
+    enabled: true
+    change-log: classpath:bd/liquibase-changelog.yml
+  sql:
+    init:
+      mode: always
