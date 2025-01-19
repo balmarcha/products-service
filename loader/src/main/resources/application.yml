@@ -1,0 +1,8 @@
+server:
+  port: 7071
+  servlet:
+    context-path: /products-service
+
+spring:
+  config:
+    import: classpath:infrastructure.yml

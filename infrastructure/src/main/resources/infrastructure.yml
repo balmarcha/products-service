@@ -1,7 +1,3 @@
-server:
-  port: 7071
-  servlet:
-    context-path: /products-service
 spring:
   datasource:
     driver-class-name: org.postgresql.Driver
